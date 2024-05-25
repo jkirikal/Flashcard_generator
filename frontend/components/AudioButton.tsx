@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useState } from "react"
+import { FaPlay, FaSquareFull } from "react-icons/fa6"
 
 interface AudioButtonProps {
   src: string
@@ -27,8 +28,8 @@ const AudioButton: React.FC<AudioButtonProps> = ({ src }) => {
 
   return (
     <div>
-      <button onClick={() => (playing ? stopAudio() : playAudio())} className="bg-blue-300 px-6 py-4">
-        {playing ? "Stop" : "Play"}
+      <button onClick={() => (playing ? stopAudio() : playAudio())} className="bg-indigo-400 h-12 w-12 flex justify-center items-center rounded-[50px]">
+        {playing ? <FaSquareFull className="text-white" size={12} /> : <FaPlay className="text-white ml-1" />}
       </button>
       <audio ref={audioRef} src={"/example_bossa_nova.ogg"} />
     </div>
