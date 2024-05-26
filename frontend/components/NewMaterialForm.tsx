@@ -20,18 +20,17 @@ const data: flashcardType[] = [
 async function uploadFile(materialFile: File, questionFile: File) {
   try {
     const formData = new FormData()
-    formData.append("file", materialFile)
-    formData.append("file", questionFile) // Append questionFile second
+    formData.append("file1", materialFile)
+    formData.append("file2", questionFile) // Append questionFile second
 
     const res = await fetch("http://localhost:8080/api/file/upload", {
       method: "POST",
       body: formData as any,
       headers: {},
     })
-
     if (!res.ok) throw new Error("Failed to upload file")
-    //const data = await res.json() // Assuming the response is JSON
-    return data
+    const data = await res.json() // Assuming the response is JSON
+    return data.q_a_pairs
   } catch (error) {
     console.error("Error uploading files:", error)
     return data

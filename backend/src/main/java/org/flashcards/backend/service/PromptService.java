@@ -29,7 +29,7 @@ public class PromptService {
     public ResponseEntity<String> createPrompt(MultipartFile materialsPDF, MultipartFile questionsFile) {
         try{
             String base = fileService.pdfToTextConverter(materialsPDF);
-            String questions = fileService.convertMultipartFileToString(questionsFile);
+            String questions = fileService.pdfToTextConverter(questionsFile);
             String apiKey = getApiKey();
 
             ResponseEntity<String> response = generateResponse(apiKey, base, questions);
@@ -65,7 +65,7 @@ public class PromptService {
 
         String jsonBody = "{ \"contents\": [ { \"parts\": [ { \"text\": \"You get a text file to analyze. Then I give you questions, for which you have to create flashcards for each of those questions. The flashcard answers should be in Estonian, precise and based only on the given text file and nothing else.\" }," +
                 " { \"text\": \"input: 1. Milliseid kompartmente hõlmab raku sisemembraanide võrgustik?\\n2. Kirjelda karedapinnalist tsütoplasma võrgustikku. Mis on selle funktsioonid?\\n3. Kirjelda siledapinnalist tsütoplasma võrgustikku. Mis on selle funktsioonid?\" }," +
-                " { \"text\": \"output: {    \\\"q-a_pairs\\\": [        {            \\\"question\\\": \\\"Milliseid kompartmente hõlmab raku sisemembraanide võrgustik?\\\",            \\\"answer\\\": \\\"Endoplasmaatiline retiikulum, Golgi aparaat, vakuool, lüsosoomid, peroksüsoomid.\\\"        }," +
+                " { \"text\": \"output: {    \\\"q_a_pairs\\\": [        {            \\\"question\\\": \\\"Milliseid kompartmente hõlmab raku sisemembraanide võrgustik?\\\",            \\\"answer\\\": \\\"Endoplasmaatiline retiikulum, Golgi aparaat, vakuool, lüsosoomid, peroksüsoomid.\\\"        }," +
                 "        {            \\\"question\\\": \\\"Kirjelda karedapinnalist tsütoplasma võrgustikku. Mis on selle funktsioonid?\\\",            \\\"answer\\\": \\\"Karedapinnaline tsütoplasma võrgustik (RET) on membraanide võrgustik, mille pinnal on ribosoomid. RET osaleb valkude sünteesis, modifitseerimises ja transportimises.\\\"        }," +
                 "        {            \\\"question\\\": \\\"Kirjelda siledapinnalist tsütoplasma võrgustikku. Mis on selle funktsioonid?\\\",            \\\"answer\\\": \\\"Siledapinnaline tsütoplasma võrgustik (SET) on membraanide võrgustik ilma ribosoomideta. SET osaleb lipiidide ja steroidide sünteesis, detoksifikatsioonis ja kaltsiumi ladustamises.\\\"        }    ]}\" }," +
                 " { \"text\": \"input: Answer to my questions based only on this text: "+base+"\n\n The questions are: "+questions+"\" }," +
