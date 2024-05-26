@@ -1,0 +1,35 @@
+1. Miks on rakujagunemine eluoluline?
+2. Mis võib juhtuda, kui raku jagunemise etapid ei kulge korrektselt?
+3. Mis üldiselt toimub interfaasis?
+4. Milleks on rakutsüklis G1 ja G2 faas olulised?
+5. Mis toimub G1 faasis?
+6. Mis toimub G2 faasis?
+7. Millises rakutsükli faasis paljundatakse raku organelle?
+8. Milleks on S-faas oluline?
+9. Mis toimub S faasis?
+10. Milleks on M-faas oluline?
+2
+11. Mis toimub üldiselt M-faasis?
+12. Kuidas nimetatakse mitoosi etappe?
+13. Milliseid muutusi on võimalik täheldada mitoosi erinevates etappides?
+14. Mis saab mitoosi ajal tuumakesest?
+15. Mis saab mitoosi ajal rakutuumast?
+16. Millised tsütoskeleti ümberkorraldusi tehakse mitoosi eel?
+17. Kirjelda rakulisi protsesse profaasi ajal.
+18. Mis toimub prometafaasis?
+19. Millest tuleneb metafaasis nähtavaks ilmunud kromosoomidele iseloomulik X tähe kuju?
+20. Mis toimub prometafaasis?
+21. Kuidas on mikrotuubulid organiseeritud mitoosi ajal?
+22. Kirjelda anafaasis toimuvaid muutusi rakus.
+23. Kirjelda metafaasis toimuvaid muutusi rakus.
+24. Kirjelda telofaasis toimuvaid muutusi rakus.
+25. Kirjelda tsütokineesis toimuvaid muutusi rakus.
+26. Kirjelda raku sissenöördumise protsessi.
+27. Millises faasi toimub tuumamembraani lagunemine?
+28. Millisel kujul on tuumamembraan mitoosi ajal?
+29. Mis on kääviniidid?
+30. Millal algab mitoosikäävi moodustumine?
+31. Millal duplitseeruvad tsentrosoomid?
+32. Millises mitoosi faasis reastatakse kromosoomid ühele tasapinnale kahe raku pooluse vahel?
+33. Millises mitoosi faasis alustavad kromosoomid liikumist raku pooluste suunas?
+34. Millises mitoosi faasis jõuavad kromosoomid raku poolustele?
