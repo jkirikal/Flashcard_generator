@@ -23,6 +23,7 @@ Automatically generate flashcard answers from input questions and study material
 7. Start studying from our webpage.
 8. Optionally, use the text-to-speech feature to hear the questions and answers.
 
+**Note:** You can use the .pdf and .txt in the folder "test_materials" for some examples
 ### Project by Daglas Aitsen and Johan Kirikal
 
 
