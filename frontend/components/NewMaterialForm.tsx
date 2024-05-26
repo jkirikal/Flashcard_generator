@@ -5,8 +5,10 @@ import { ScaleLoader } from "react-spinners"
 import { byteToMegabyte } from "@/utils/conversions"
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa"
 
-const supportedFileTypes = ["application/pdf"]
+const supportedMaterialFileTypes = ["application/pdf"]
+const supportedQuestionsFileTypes = ["text/plain"]
 const supportedFileTypesShort = ["pdf"]
+const supportedQuestionsFileTypesShort = ["txt"]
 const maxFileSize_MB = 300
 
 const data: flashcardType[] = [
@@ -38,10 +40,16 @@ async function uploadFile(materialFile: File, questionFile: File) {
   }
 }
 
-function verifyFile(file: File | undefined): { correct: boolean; error: string | null } {
+function verifyMaterialFile(file: File | undefined): { correct: boolean; error: string | null } {
   if (!file) return { correct: false, error: "file not found" }
   if (byteToMegabyte(file.size) > maxFileSize_MB) return { correct: false, error: "file size should not exceed " + maxFileSize_MB + " MB" }
-  if (!supportedFileTypes.includes(file.type)) return { correct: false, error: "incorrect file type, supported file types are: " + supportedFileTypesShort.join(", ") }
+  if (!supportedMaterialFileTypes.includes(file.type)) return { correct: false, error: "incorrect file type, supported file types are: " + supportedFileTypesShort.join(", ") }
+  return { correct: true, error: null }
+}
+function verifyQuestionsFile(file: File | undefined): { correct: boolean; error: string | null } {
+  if (!file) return { correct: false, error: "file not found" }
+  if (byteToMegabyte(file.size) > maxFileSize_MB) return { correct: false, error: "file size should not exceed " + maxFileSize_MB + " MB" }
+  if (!supportedQuestionsFileTypes.includes(file.type)) return { correct: false, error: "incorrect file type, supported file types are: " + supportedQuestionsFileTypesShort.join(", ") }
   return { correct: true, error: null }
 }
 
@@ -53,8 +61,8 @@ const NewMaterialForm = ({ handleAddData }: { handleAddData: (newData: flashcard
 
   async function handleSubmit() {
     setLoading(true)
-    const verifiedMaterial = verifyFile(materialFile)
-    const verifiedQuestions = verifyFile(questionsFile)
+    const verifiedMaterial = verifyMaterialFile(materialFile)
+    const verifiedQuestions = verifyQuestionsFile(questionsFile)
     if (verifiedMaterial.correct && verifiedQuestions) {
       const data = await uploadFile(materialFile!, questionsFile!) // verifyFile() checks if file is undefined
       if (data == null) setError("Error generating questions and answers")
@@ -85,7 +93,7 @@ const NewMaterialForm = ({ handleAddData }: { handleAddData: (newData: flashcard
         {questionsFile ? <FaCheckCircle className="text-emerald-400" size={20} /> : <FaRegCircle className="text-slate-300" size={20} />}{" "}
         <p className="ml-3 text-[1.1em]">Add file containing practise questions</p>
       </h3>
-      <input type="file" name="file2" id="fileInput2" className="text-[1.1em] ml-8" onChange={handleQuestionsFileAdd} accept=".pdf" />
+      <input type="file" name="file2" id="fileInput2" className="text-[1.1em] ml-8" onChange={handleQuestionsFileAdd} accept=".txt" />
 
       <section className="w-full flex justify-between items-center h-12 mt-12">
         {error ? <div className="text-[1.1em] font-semibold text-red-500">Error uploading file: {error}</div> : <div></div>} {/* empty div for flex placement */}
