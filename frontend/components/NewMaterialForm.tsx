@@ -8,6 +8,14 @@ const supportedFileTypes = ["application/pdf"]
 const supportedFileTypesShort = ["pdf"]
 const maxFileSize_MB = 300
 
+const data: flashcardType[] = [
+  { question: "Question 1", answer: "Ansewerer sfg a sdf s" },
+  { question: "Question 2", answer: "Ansewerer sfg a sdf s" },
+  { question: "Question 3", answer: "Ansewerer sfg a sdf s" },
+  { question: "Question 4", answer: "Ansewerer sfg a sdf s" },
+  { question: "Question 5", answer: "Ansewerer sfg a sdf s" },
+]
+
 async function uploadFile(file: File) {
   try {
     const formData = new FormData()
@@ -20,7 +28,11 @@ async function uploadFile(file: File) {
     })
 
     if (!res.ok) throw new Error("Failed to upload file")
-  } catch (error) {}
+    return data
+  } catch (error) {
+    return data
+    //return null
+  }
 }
 
 function verifyFile(file: File | undefined): { correct: boolean; error: string | null } {
@@ -30,7 +42,7 @@ function verifyFile(file: File | undefined): { correct: boolean; error: string |
   return { correct: true, error: null }
 }
 
-const NewMaterialForm = () => {
+const NewMaterialForm = ({ handleAddData }: { handleAddData: (newData: flashcardType[]) => void }) => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [file, setFile] = useState<File | undefined>()
@@ -39,7 +51,9 @@ const NewMaterialForm = () => {
     setLoading(true)
     const verified = verifyFile(file)
     if (verified.correct) {
-      await uploadFile(file!) // verifyFile() checks if file is undefined
+      const data = await uploadFile(file!) // verifyFile() checks if file is undefined
+      if (data == null) setError("Error generating questions and answers")
+      else handleAddData(data)
       // server side checks -> display error
     } else setError(verified.error)
     setLoading(false)
@@ -53,7 +67,7 @@ const NewMaterialForm = () => {
 
   return (
     <>
-      <input type="file" name="file" id="fileInput" className="mt-8" onChange={handleFileAdd} accept=".pdf" />
+      <input type="file" name="file" id="fileInput" className="mt-8 text-[1.1em]" onChange={handleFileAdd} accept=".pdf" />
 
       <section className="w-full flex justify-between items-center h-12 ">
         {error ? <div className="text-[1.1em] font-semibold text-red-500">Error uploading file: {error}</div> : <div></div>} {/* empty div for flex placement */}

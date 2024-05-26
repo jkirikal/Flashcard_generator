@@ -25,7 +25,10 @@ const FlashcardCard = ({ flashcard, index }: { flashcard: flashcardType; index: 
           <AudioButton text={revealed ? flashcard.answer : flashcard.question} />
         </div>
       </div>
-      <div onClick={() => setRevealed(!revealed)} className="bg-white pb-24 pt-8 w-full mb-4 px-8 cursor-pointer rounded-2xl min-h-[17em] flex items-center justify-center">
+      <div
+        onClick={() => setRevealed(!revealed)}
+        className="unselectable bg-white pb-20 pt-5 w-full mb-8 px-8 cursor-pointer rounded-2xl min-h-[15em] flex items-center justify-center lg:text-[1.2em]"
+      >
         {revealed ? flashcard.answer : flashcard.question}
       </div>
     </div>
