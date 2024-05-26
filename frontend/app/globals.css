@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #e5ebfd;
+  background-color: #f6f7fe;
 }
 
 @layer utilities {
@@ -17,4 +17,12 @@ body {
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Standard syntax */
+}
+
+.shadow {
+  box-shadow: rgba(173, 184, 195, 0.2) 0px 8px 24px;
+}
+
+.shadow2 {
+  box-shadow: rgba(183, 183, 183, 0.1) 0px 4px 6px -1px, rgba(62, 62, 62, 0.06) 0px 2px 4px -1px;
 }

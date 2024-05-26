@@ -11,16 +11,16 @@ const FlashcardCard = ({ flashcard, index }: { flashcard: flashcardType; index: 
   }, [flashcard])
 
   return (
-    <div className="rounded-2xl bg-white">
+    <div className="rounded-2xl bg-white shadow">
       <div className="h-16 pt-4 flex items-center justify-between pl-8 pr-6">
         <div className="font-semibold text-[1.1em]">
           {revealed ? "Answer for question " : "Question "} {index}:{" "}
         </div>
         <div className="flex items-center">
           {revealed ? (
-            <FaEyeSlash className="mr-4 text-slate-700 cursor-pointer" onClick={() => setRevealed(false)} size={24} />
+            <FaEyeSlash className="mr-4 text-slate-700 hover:text-slate-500 cursor-pointer" onClick={() => setRevealed(false)} size={24} />
           ) : (
-            <FaEye className="mr-4 text-slate-700 cursor-pointer" onClick={() => setRevealed(true)} size={24} />
+            <FaEye className="mr-4 text-slate-700 cursor-pointer hover:text-slate-500" onClick={() => setRevealed(true)} size={24} />
           )}
           <AudioButton text={revealed ? flashcard.answer : flashcard.question} />
         </div>

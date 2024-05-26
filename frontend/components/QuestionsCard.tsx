@@ -1,10 +1,10 @@
 const QuestionsCard = ({ flashcard, index }: { flashcard: flashcardType; index: number }) => {
   return (
-    <div className="bg-white flex mb-4 rounded-[7px]">
-      <h2 className="w-[30%] p-8">
+    <div className="bg-white md:flex mb-3 rounded-[4px] shadow2">
+      <h2 className="md:w-[30%] p-7">
         {index}. {flashcard.question}
       </h2>
-      <p className="w-[70%] p-8">{flashcard.answer}</p>
+      <p className="md:w-[70%] pl-7 pb-8 md:p-7">{flashcard.answer}</p>
     </div>
   )
 }

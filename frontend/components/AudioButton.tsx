@@ -67,7 +67,7 @@ const AudioButton: React.FC<AudioButtonProps> = ({ text }) => {
 
   return (
     <div>
-      <button onClick={() => (playing ? stopAudio() : fetchAudio())} className="bg-indigo-400 h-12 w-12 flex justify-center items-center rounded-[50px]">
+      <button onClick={() => (playing ? stopAudio() : fetchAudio())} className="hover:bg-indigo-300 bg-indigo-400 h-12 w-12 flex justify-center items-center rounded-[50px]">
         {playing ? <FaSquareFull className="text-white" size={12} /> : loading ? <ScaleLoader color="white" height={15} width={3} margin={1} /> : <FaPlay className="text-white ml-1" />}
       </button>
       <audio ref={audioRef} src={"/example_bossa_nova.ogg"} />
