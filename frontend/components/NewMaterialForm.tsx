@@ -23,7 +23,7 @@ async function uploadFile(materialFile: File, questionFile: File) {
     formData.append("file1", materialFile)
     formData.append("file2", questionFile) // Append questionFile second
 
-    const res = await fetch("http://localhost:8080/api/file/upload", {
+    const res = await fetch("http://13.49.229.251:8080/api/file/upload", {
       method: "POST",
       body: formData as any,
       headers: {},

@@ -2,7 +2,9 @@ package org.flashcards.backend.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,8 +18,11 @@ import java.util.List;
 
 @Service
 public class PromptService {
-    @Value("${api.url}")
+    @Value("${hard.key}")
     private String apiUrl;
+
+    @Autowired
+    private Environment env;
 
     private final FileService fileService;
 
@@ -29,8 +34,8 @@ public class PromptService {
     public ResponseEntity<String> createPrompt(MultipartFile materialsPDF, MultipartFile questionsFile) {
         try{
             String base = fileService.pdfToTextConverter(materialsPDF);
-            String questions = fileService.pdfToTextConverter(questionsFile);
-            String apiKey = getApiKey();
+            String questions = fileService.convertMultipartFileToString(questionsFile);
+            String apiKey = env.getProperty("API_KEY");
 
             ResponseEntity<String> response = generateResponse(apiKey, base, questions);
             String jsonString = response.getBody();
