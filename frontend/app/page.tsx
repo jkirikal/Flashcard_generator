@@ -30,12 +30,16 @@ export default function Home() {
               Try Demo
             </button>
           </div>
+          <p className="text-[0.95em] ">Please upload two files. The first file should contain the subject material and the second file should include the practise questions.</p>
+          <p className="mt-3 text-[0.95em] ">
+            The maximum file size is <span className="font-bold">300 MB</span> and the file type should be <span className="font-bold">.pdf</span>.{" "}
+          </p>
           <NewMaterialForm handleAddData={handleAddData} />
         </div>
       ) : (
         <>
           <div className="font-medium  mb-8 flex items-center cursor-pointer text-indigo-500 hover:text-indigo-300" onClick={() => setFlashcardData(null)}>
-            Choose new file <IoReloadCircle size={24} className="ml-2" />
+            Choose new files <IoReloadCircle size={24} className="ml-2" />
           </div>
           <Flashcards data={flashcardData} />
         </>

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ScaleLoader } from "react-spinners"
 import { byteToMegabyte } from "@/utils/conversions"
+import { FaCheckCircle, FaRegCircle } from "react-icons/fa"
 
 const supportedFileTypes = ["application/pdf"]
 const supportedFileTypesShort = ["pdf"]
@@ -76,12 +77,18 @@ const NewMaterialForm = ({ handleAddData }: { handleAddData: (newData: flashcard
 
   return (
     <>
-      <h3 className="font-semibold mb-3">1. Add file containing subject material</h3>
-      <input type="file" name="file" id="fileInput" className="text-[1.1em] mb-8" onChange={handleMaterialFileAdd} accept=".pdf" />
-      <h3 className="font-semibold mb-3">2. Add file containing practise questions</h3>
-      <input type="file" name="file2" id="fileInput2" className="text-[1.1em]" onChange={handleQuestionsFileAdd} accept=".pdf" />
+      <h3 className="font-semibold mb-3 flex items-center mt-10">
+        {materialFile ? <FaCheckCircle className="text-emerald-400" size={20} /> : <FaRegCircle className="text-slate-300" size={20} />}{" "}
+        <p className="ml-3 text-[1.1em]">Add file containing subject material</p>
+      </h3>
+      <input type="file" name="file" id="fileInput" className="text-[1.1em] mb-8 ml-8" onChange={handleMaterialFileAdd} accept=".pdf" />
+      <h3 className="font-semibold mb-3 flex items-center">
+        {questionsFile ? <FaCheckCircle className="text-emerald-400" size={20} /> : <FaRegCircle className="text-slate-300" size={20} />}{" "}
+        <p className="ml-3 text-[1.1em]">Add file containing practise questions</p>
+      </h3>
+      <input type="file" name="file2" id="fileInput2" className="text-[1.1em] ml-8" onChange={handleQuestionsFileAdd} accept=".pdf" />
 
-      <section className="w-full flex justify-between items-center h-12 mt-2">
+      <section className="w-full flex justify-between items-center h-12 mt-12">
         {error ? <div className="text-[1.1em] font-semibold text-red-500">Error uploading file: {error}</div> : <div></div>} {/* empty div for flex placement */}
         <button
           disabled={loading || !materialFile || !questionsFile}
