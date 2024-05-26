@@ -16,10 +16,11 @@ const data: flashcardType[] = [
   { question: "Question 5", answer: "Ansewerer sfg a sdf s" },
 ]
 
-async function uploadFile(file: File) {
+async function uploadFile(materialFile: File, questionFile: File) {
   try {
     const formData = new FormData()
-    formData.append("file", file)
+    formData.append("file", materialFile)
+    formData.append("file", questionFile) // Append questionFile second
 
     const res = await fetch("http://localhost:8080/api/file/upload", {
       method: "POST",
@@ -28,8 +29,10 @@ async function uploadFile(file: File) {
     })
 
     if (!res.ok) throw new Error("Failed to upload file")
+    //const data = await res.json() // Assuming the response is JSON
     return data
   } catch (error) {
+    console.error("Error uploading files:", error)
     return data
     //return null
   }
@@ -45,35 +48,47 @@ function verifyFile(file: File | undefined): { correct: boolean; error: string |
 const NewMaterialForm = ({ handleAddData }: { handleAddData: (newData: flashcardType[]) => void }) => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
-  const [file, setFile] = useState<File | undefined>()
+  const [materialFile, setMaterialFile] = useState<File | undefined>()
+  const [questionsFile, setQuestionsFile] = useState<File | undefined>()
 
   async function handleSubmit() {
     setLoading(true)
-    const verified = verifyFile(file)
-    if (verified.correct) {
-      const data = await uploadFile(file!) // verifyFile() checks if file is undefined
+    const verifiedMaterial = verifyFile(materialFile)
+    const verifiedQuestions = verifyFile(questionsFile)
+    if (verifiedMaterial.correct && verifiedQuestions) {
+      const data = await uploadFile(materialFile!, questionsFile!) // verifyFile() checks if file is undefined
       if (data == null) setError("Error generating questions and answers")
       else handleAddData(data)
-      // server side checks -> display error
-    } else setError(verified.error)
+    } else setError(!verifiedMaterial.correct ? verifiedMaterial.error : verifiedQuestions.error)
     setLoading(false)
   }
 
-  function handleFileAdd(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleMaterialFileAdd(e: React.ChangeEvent<HTMLInputElement>) {
     const selectedFile = e.target.files && e.target.files[0]
     if (!selectedFile) return
-    setFile(selectedFile)
+    setMaterialFile(selectedFile)
+  }
+  function handleQuestionsFileAdd(e: React.ChangeEvent<HTMLInputElement>) {
+    const selectedFile = e.target.files && e.target.files[0]
+    if (!selectedFile) return
+    setQuestionsFile(selectedFile)
   }
 
   return (
     <>
-      <input type="file" name="file" id="fileInput" className="mt-8 text-[1.1em]" onChange={handleFileAdd} accept=".pdf" />
+      <h3 className="font-semibold mb-3">1. Add file containing subject material</h3>
+      <input type="file" name="file" id="fileInput" className="text-[1.1em] mb-8" onChange={handleMaterialFileAdd} accept=".pdf" />
+      <h3 className="font-semibold mb-3">2. Add file containing practise questions</h3>
+      <input type="file" name="file2" id="fileInput2" className="text-[1.1em]" onChange={handleQuestionsFileAdd} accept=".pdf" />
 
-      <section className="w-full flex justify-between items-center h-12 ">
+      <section className="w-full flex justify-between items-center h-12 mt-2">
         {error ? <div className="text-[1.1em] font-semibold text-red-500">Error uploading file: {error}</div> : <div></div>} {/* empty div for flex placement */}
         <button
-          disabled={loading || !file}
-          className={"bg-emerald-300 px-10 py-3 font-semibold text-emerald-700 rounded-[50px] flex justify-center items-center h-full w-32 " + (!file && " bg-gray-100 text-slate-300")}
+          disabled={loading || !materialFile || !questionsFile}
+          className={
+            "bg-emerald-300 px-10 py-3 font-semibold text-emerald-700 rounded-[50px] flex justify-center items-center h-full w-32 " +
+            ((!materialFile || !questionsFile) && " bg-gray-100 text-slate-300")
+          }
           onClick={handleSubmit}
         >
           {loading ? <ScaleLoader margin={1} height={15} color="#065f46" /> : "Submit"}
