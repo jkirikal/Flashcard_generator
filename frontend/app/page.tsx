@@ -5,7 +5,7 @@ import Flashcards from "@/components/Flashcards"
 import { useState } from "react"
 import { IoReloadCircle } from "react-icons/io5"
 
-const dataData: flashcardType[] = [
+const demoData: flashcardType[] = [
   { question: "Miks on rakujagunemine eluoluline?", answer: "Rakkude jagunemine on organismile eluküsimus, kuna see tagab paljunemise, kasvu ja kudede uuenemise." },
   {
     question: "Mis võib juhtuda, kui raku jagunemise etapid ei kulge korrektselt?",
