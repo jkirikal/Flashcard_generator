@@ -16,7 +16,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class FileService {
-    private static final String UPLOAD_DIR = "uploads/";
+    private static final String UPLOAD_DIR = "/home/ec2-user/uploads/";
+
+    //Converts a pdf file into text
     public String pdfToTextConverter(MultipartFile file) throws IOException {
         // Save the uploaded file to a temporary location
         Path tempFile = Files.createTempFile(Paths.get(UPLOAD_DIR), null, ".pdf");
@@ -35,6 +37,7 @@ public class FileService {
         }
         return text.toString();
     }
+
     public String convertMultipartFileToString(MultipartFile file) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
             return reader.lines().collect(Collectors.joining("\n"));

@@ -30,9 +30,9 @@ public class PromptService {
         this.fileService = fileService;
     }
 
-
     public ResponseEntity<String> createPrompt(MultipartFile materialsPDF, MultipartFile questionsFile) {
         try{
+            //Converts questions and materials into a string that can be added to the prompt
             String base = fileService.pdfToTextConverter(materialsPDF);
             String questions = fileService.convertMultipartFileToString(questionsFile);
             String apiKey = env.getProperty("API_KEY");
